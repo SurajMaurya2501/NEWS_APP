@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:news_app/model/searched_article_model.dart';
 
-class CategoryArticlesApi {
+class SearchArticleApi {
   String apiUrl = '';
 
   String getApiUrl(String searchTerm) {
@@ -12,13 +12,13 @@ class CategoryArticlesApi {
 
   Future<List<SearchArticleModel>> fetchSearchedArticles() async {
     final response = await http.get(Uri.parse(apiUrl));
-    List<SearchArticleModel> categoryArticles = [];
+    List<SearchArticleModel> searchArticles = [];
 
     if (response.statusCode == 200) {
       List<dynamic> allData = json.decode(response.body)['response'];
-      categoryArticles =
+      searchArticles =
           allData.map((e) => SearchArticleModel.fromJson(e)).toList();
     }
-    return categoryArticles;
+    return searchArticles;
   }
 }

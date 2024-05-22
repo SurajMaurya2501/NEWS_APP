@@ -32,4 +32,5 @@ class SearchArticleModel {
             .toList(),
         headline: json['headline']);
   }
+  
 }

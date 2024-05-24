@@ -6,10 +6,13 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Lottie.asset(
-        'assets/lottie/loading.json',
-        height: 100,
+    return Container(
+      color: Colors.black,
+      child: Center(
+        child: Lottie.asset(
+          'assets/lottie/loading.json',
+          height: 100,
+        ),
       ),
     );
   }

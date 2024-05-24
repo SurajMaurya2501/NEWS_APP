@@ -15,7 +15,7 @@ class SearchArticleApi {
     List<SearchArticleModel> searchArticles = [];
 
     if (response.statusCode == 200) {
-      List<dynamic> allData = json.decode(response.body)['response'];
+      List<dynamic> allData = json.decode(response.body)['response']['docs'];
       searchArticles =
           allData.map((e) => SearchArticleModel.fromJson(e)).toList();
     }

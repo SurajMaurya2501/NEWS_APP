@@ -1,10 +1,19 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:news_app/common_widgets/hive_adaptor.dart';
 import 'package:news_app/common_widgets/pageroute_builder.dart';
 import 'package:news_app/view/article_screen.dart';
-import 'package:news_app/view/category_screen.dart';
+import 'package:news_app/view/nav_screen.dart';
 import 'package:news_app/view/news.dart';
+import 'package:news_app/view/splash_sreen.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  Hive.init(appDocDir.path);
+  Hive.registerAdapter(ListOfMapsAdapter());
   runApp(const MyApp());
 }
 
@@ -15,10 +24,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: "/splash",
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case "/category":
-            return CustomPageRouteBuilder(page: const CategoryNewsScreen());
+          case "/splash":
+            return CustomPageRouteBuilder(
+              page: const SplashScreen(),
+            );
+
           case "/article":
             Map<String, dynamic> arguments =
                 settings.arguments as Map<String, dynamic>;
@@ -36,27 +49,19 @@ class MyApp extends StatelessWidget {
                 categoryName: arguments["categoryName"],
               ),
             );
+
+          case "/nav":
+            return CustomPageRouteBuilder(
+              page: const NavScreen(),
+            );
         }
+        return null;
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      // home: const SplashScreen(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const CategoryNewsScreen();
   }
 }

@@ -30,7 +30,6 @@ class SearchArticleModel {
         multimedia: multimedia
             .map((media) => SearchMultiMedia.fromJson(media))
             .toList(),
-        headline: json['headline']);
+        headline: json['headline']['main']);
   }
-  
 }

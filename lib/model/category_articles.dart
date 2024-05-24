@@ -33,11 +33,11 @@ class CategoryArticles {
       required this.short_url});
 
   factory CategoryArticles.fromJson(Map<String, dynamic> json) {
-    List<dynamic> multimedia = json["multimedia"];
+    List<dynamic> multimedia = json["multimedia"] ?? [];
     return CategoryArticles(
         section: json["section"],
         subsection: json["subsection"],
-        title:json["title"],
+        title: json["title"],
         abstract: json["abstract"],
         url: json["url"],
         uri: json["uri"],
